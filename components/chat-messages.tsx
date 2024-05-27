@@ -41,7 +41,7 @@ const scrollRef = useRef<ElementRef<"div">>(null);
               isLoading={fakeLoading}
               src={companion.src}
               role="system"
-              content={`Hello, I am ${companion.name}, ${companion.description}`}
+              content={`Привет, я ${companion.name}, ${companion.description}`}
             />
             {messages.map((message) => (
                 <ChatMessage
