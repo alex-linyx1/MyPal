@@ -1,14 +1,14 @@
 import { Redis } from "@upstash/redis";
-import { OpenAIEmbeddings } from "@langchain/openai";
 import { Pinecone } from "@pinecone-database/pinecone";
 import { PineconeStore } from "@langchain/pinecone";
+import { HuggingFaceInferenceEmbeddings } from "@langchain/community/embeddings/hf";
 
 export type CompanionKey = {
     companionName: string;
     modelName: string;
     userId: string;
   };
-  
+
   export class MemoryManager {
     private static instance: MemoryManager;
     private history: Redis;
@@ -39,7 +39,7 @@ export type CompanionKey = {
       );
   
       const vectorStore = await PineconeStore.fromExistingIndex(
-        new OpenAIEmbeddings({ openAIApiKey: process.env.OPENAI_API_KEY }),
+        new HuggingFaceInferenceEmbeddings({ apiKey: process.env.HUGGINGFACE_API_KEY }),
         { pineconeIndex }
       ); 
   
@@ -48,6 +48,8 @@ export type CompanionKey = {
         .catch((err: any) => {
           console.log("WARNING: failed to get vector search results.", err);
         });
+
+      console.log("DEBUG: similar documents" + similarDocs)
       return similarDocs;
     }
   
@@ -113,5 +115,3 @@ export type CompanionKey = {
       }
     }
   }
-
-
