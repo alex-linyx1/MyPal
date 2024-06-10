@@ -1,4 +1,5 @@
 "use client";
+
 import { ChatRequestOptions } from "ai";
 import { ChangeEvent, FormEvent } from "react";
 import { CircleArrowUp, SendHorizonal } from "lucide-react";
